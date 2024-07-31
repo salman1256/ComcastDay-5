@@ -1,7 +1,15 @@
+using AutoMapper;
+using CommandService.Data;
+using CommandService.Dto;
+using CommandService.Repos;
+using Microsoft.EntityFrameworkCore;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
-
+builder.Services.AddDbContext<AppDbContext>(options=>options.UseInMemoryDatabase("InMemory"));
+builder.Services.AddScoped<ICommandRepo,CommandRepo>();
+builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
